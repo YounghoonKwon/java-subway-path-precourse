@@ -1,5 +1,6 @@
 package subway;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import subway.domain.Station;
@@ -12,11 +13,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class StationTest {
     static Station station;
 
+    @BeforeAll
+    static void init(){
+        Application.init();
+    }
+
     @DisplayName("이름으로 역을 찾는다.")
     @Test
     void When_기본상태역찾기_Expect_찾기완료() {
-        String testName = "사당역";
-        assertThat(StationRepository.findStationByName(testName).equals(station));
+        String testStationName = "군자역";
+        Station testStation = new Station(testStationName);
+        StationRepository.addStation(testStation);
+        assertThat(StationRepository.findStationByName(testStationName)).isEqualTo(testStation);
     }
 
     @DisplayName("예외 : 이름으로 역을 찾는다.")
