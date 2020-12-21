@@ -21,16 +21,16 @@ public class RouteController {
         OutputView.showPrompt(ARRIVAL_STATION);
         Station arrivalStation = StationRepository.findStationByName(InputView.getInput());
 
-        if (departStation.equals(arrivalStation)) {
-            throw new TransitRouteException(String.format(SAME_STATION_ERROR_MESSAGE, DEPARTURE_STATION,
-                    ARRIVAL_STATION));
-        }
-
         showRouteByDistance(departStation, arrivalStation);
 
     }
 
     public static void showRouteByDistance(Station departStation, Station arrivalStation){
+        if (departStation.equals(arrivalStation)) {
+            throw new TransitRouteException(String.format(SAME_STATION_ERROR_MESSAGE, DEPARTURE_STATION,
+                    ARRIVAL_STATION));
+        }
+
         List<Station> shortestPath = GraphByDistance.getShortestPathByDistance(departStation, arrivalStation);
         int shortestPathDistance = GraphByDistance.getDistanceOfShortestPathByDistance(departStation, arrivalStation);
         int timeOfShortestPathDistance = GraphByDistance.getTimeOfShortestPathByDistance(departStation, arrivalStation);
@@ -43,15 +43,15 @@ public class RouteController {
         OutputView.showPrompt(ARRIVAL_STATION);
         Station arrivalStation = StationRepository.findStationByName(InputView.getInput());
 
+        showRouteByTime(departStation, arrivalStation);
+    }
+
+    public static void showRouteByTime(Station departStation, Station arrivalStation) {
         if (departStation.equals(arrivalStation)) {
             throw new TransitRouteException(String.format(SAME_STATION_ERROR_MESSAGE, DEPARTURE_STATION,
                     ARRIVAL_STATION));
         }
 
-        showRouteByTime(departStation, arrivalStation);
-    }
-
-    public static void showRouteByTime(Station departStation, Station arrivalStation) {
         List<Station> shortestPath = GraphByTime.getShortestPathByTime(departStation, arrivalStation);
         int shortestPathTime = GraphByTime.getTimeOfShortestPathByTime(departStation, arrivalStation);
         int distanceOfShortestPathTime = GraphByTime.getDistanceOfShortestPathByTime(departStation, arrivalStation);
