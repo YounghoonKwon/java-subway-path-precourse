@@ -34,31 +34,31 @@ public class Application {
     public static void initGraph() {
         StationRepository.getStations()
                 .stream()
-                .forEach(station -> GraphByTime.addVertex(station.getName()));
+                .forEach(station -> GraphByTime.addVertex(station));
         StationRepository.getStations()
                 .stream()
-                .forEach(station -> GraphByDistance.addVertex(station.getName()));
+                .forEach(station -> GraphByDistance.addVertex(station));
         initDistanceGraph();
         initTimeGraph();
     }
 
     public static void initDistanceGraph() {
-        GraphByDistance.setEdgeWeight("교대역", "강남역", 2);
-        GraphByDistance.setEdgeWeight("강남역", "역삼역", 2);
-        GraphByDistance.setEdgeWeight("교대역", "남부터미널역", 3);
-        GraphByDistance.setEdgeWeight("남부터미널역", "양재역", 6);
-        GraphByDistance.setEdgeWeight("양재역", "매봉역", 1);
-        GraphByDistance.setEdgeWeight("강남역", "양재역", 2);
-        GraphByDistance.setEdgeWeight("양재역", "양재시민의숲역", 10);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 2);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 2);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 3);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 6);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 2);
+        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 10);
     }
 
     public static void initTimeGraph() {
-        GraphByTime.setEdgeWeight("교대역", "강남역", 3);
-        GraphByTime.setEdgeWeight("강남역", "역삼역", 3);
-        GraphByTime.setEdgeWeight("교대역", "남부터미널역", 2);
-        GraphByTime.setEdgeWeight("남부터미널역", "양재역", 5);
-        GraphByTime.setEdgeWeight("양재역", "매봉역", 1);
-        GraphByTime.setEdgeWeight("강남역", "양재역", 8);
-        GraphByTime.setEdgeWeight("양재역", "양재시민의숲역", 3);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 3);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 3);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 2);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 5);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 8);
+        GraphByTime.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 3);
     }
 }

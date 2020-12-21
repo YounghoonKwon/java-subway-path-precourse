@@ -19,7 +19,7 @@
   - [] 최단 거리에 대한 총 시간을 구한다.
   - [] 최소 시간에 대한 총 거리를 구한다.
   - JGrapht 디버깅
-    - <Station> vertex에 넣었을시 loop not allowed 에러 수정하기
+    - <Station> vertex에 넣었을시 loop not allowed 에러 수정하기q
 
 ```
  1. 지하철역으로 교대역, 강남역, 역삼역, 남부터미널역, 양재역, 양재시민의숲역, 매봉역이 등록되어 있다.

@@ -1,5 +1,6 @@
 package subway.view;
 
+import subway.domain.Station;
 import subway.menu.MainMenu;
 import subway.menu.RouteMenu;
 
@@ -53,14 +54,14 @@ public class OutputView {
         System.out.println(String.format(USER_PROMPT_PLEASE_TYPE, departOrArriveStation));
     }
 
-    public static void lookUpResult(int distance, int time, List<String> stations) {
+    public static void lookUpResult(int distance, int time, List<Station> stations) {
         StringBuilder lookUpResult = new StringBuilder(LOOKUP_RESULT);
         lookUpResult.append(INFO + THREE_DASH);
         lookUpResult.append(INFO + TOTAL_DISTANCE + distance + KM);
         lookUpResult.append(INFO + TOTAL_MINUTE + time + MINUTE);
         lookUpResult.append(INFO + THREE_DASH);
         stations.stream()
-                .forEach(stationName -> lookUpResult.append(INFO + stationName));
+                .forEach(station -> lookUpResult.append(INFO + station.getName()));
         System.out.println(lookUpResult.toString());
     }
 }

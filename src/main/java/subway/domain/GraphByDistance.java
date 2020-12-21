@@ -10,7 +10,7 @@ import java.util.List;
 public class GraphByDistance {
     private static final String ERROR_STATIONS_NOT_CONNECTED = "출발역과 도착역이 연결되어 있지 않습니다";
 
-    private static final WeightedMultigraph<String, DefaultWeightedEdge> graph =
+    private static final WeightedMultigraph<Station, DefaultWeightedEdge> graph =
             new WeightedMultigraph(DefaultWeightedEdge.class);
     private static final DijkstraShortestPath shortestDistanceGraph = new DijkstraShortestPath(graph);
 
@@ -18,24 +18,24 @@ public class GraphByDistance {
         return graph;
     }
 
-    public static void addVertex(String station) {
+    public static void addVertex(Station station) {
         graph.addVertex(station);
     }
 
-    public static void setEdgeWeight(String from, String to, int distance) {
+    public static void setEdgeWeight(Station from, Station to, int distance) {
         graph.setEdgeWeight(graph.addEdge(from, to), distance);
     }
 
-    public static List<String> getShortestPathByDistance(String from, String to) {
-        List<String> shortestPath = shortestDistanceGraph.getPath(from, to).getVertexList();
+    public static List<Station> getShortestPathByDistance(Station from, Station to) {
+        List<Station> shortestPath = shortestDistanceGraph.getPath(from, to).getVertexList();
         if(shortestPath.isEmpty()){
             throw new TransitRouteException(ERROR_STATIONS_NOT_CONNECTED);
         }
         return shortestPath;
     }
 
-    public static int getTimeOfShortestPathByDistance(String from, String to) {
-        WeightedMultigraph<String, DefaultWeightedEdge> timeGraph = GraphByTime.getGraph();
+    public static int getTimeOfShortestPathByDistance(Station from, Station to) {
+        WeightedMultigraph<Station, DefaultWeightedEdge> timeGraph = GraphByTime.getGraph();
         int totalTime = shortestDistanceGraph
                 .getPath(from, to)
                 .getEdgeList()
@@ -46,7 +46,7 @@ public class GraphByDistance {
         return totalTime;
     }
 
-    public static int getDistanceOfShortestPathByDistance(String from, String to) {
+    public static int getDistanceOfShortestPathByDistance(Station from, Station to) {
         return (int) shortestDistanceGraph.getPathWeight(from, to);
     }
 }

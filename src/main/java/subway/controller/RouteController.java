@@ -26,12 +26,12 @@ public class RouteController {
                     ARRIVAL_STATION));
         }
 
-        showRouteByDistance(departStation.getName(), arrivalStation.getName());
+        showRouteByDistance(departStation, arrivalStation);
 
     }
 
-    public static void showRouteByDistance(String departStation, String arrivalStation){
-        List<String> shortestPath = GraphByDistance.getShortestPathByDistance(departStation, arrivalStation);
+    public static void showRouteByDistance(Station departStation, Station arrivalStation){
+        List<Station> shortestPath = GraphByDistance.getShortestPathByDistance(departStation, arrivalStation);
         int shortestPathDistance = GraphByDistance.getDistanceOfShortestPathByDistance(departStation, arrivalStation);
         int timeOfShortestPathDistance = GraphByDistance.getTimeOfShortestPathByDistance(departStation, arrivalStation);
         OutputView.lookUpResult(shortestPathDistance, timeOfShortestPathDistance, shortestPath);
@@ -48,11 +48,11 @@ public class RouteController {
                     ARRIVAL_STATION));
         }
 
-        showRouteByTime(departStation.getName(), arrivalStation.getName());
+        showRouteByTime(departStation, arrivalStation);
     }
 
-    public static void showRouteByTime(String departStation, String arrivalStation) {
-        List<String> shortestPath = GraphByTime.getShortestPathByTime(departStation, arrivalStation);
+    public static void showRouteByTime(Station departStation, Station arrivalStation) {
+        List<Station> shortestPath = GraphByTime.getShortestPathByTime(departStation, arrivalStation);
         int shortestPathTime = GraphByTime.getTimeOfShortestPathByTime(departStation, arrivalStation);
         int distanceOfShortestPathTime = GraphByTime.getDistanceOfShortestPathByTime(departStation, arrivalStation);
         OutputView.lookUpResult(distanceOfShortestPathTime, shortestPathTime, shortestPath);
