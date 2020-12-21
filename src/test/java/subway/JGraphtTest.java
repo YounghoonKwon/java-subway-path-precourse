@@ -1,7 +1,7 @@
 package subway;
 
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.CustomWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
 import org.junit.jupiter.api.Test;
 import subway.domain.Station;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class JGraphtTest {
     @Test
     public void getDijkstraShortestPath() {
-        WeightedMultigraph<Station, DefaultWeightedEdge> graph = new WeightedMultigraph(DefaultWeightedEdge.class);
+        WeightedMultigraph<Station, CustomWeightedEdge> graph = new WeightedMultigraph(CustomWeightedEdge.class);
         Station v1 = new Station("v1");
         Station v2 = new Station("v2");
         Station v3 = new Station("v3");

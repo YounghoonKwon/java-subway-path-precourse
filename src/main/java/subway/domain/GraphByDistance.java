@@ -1,7 +1,8 @@
 package subway.domain;
 
+import org.jgrapht.Graph;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.CustomWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
 import subway.exception.TransitRouteException;
 
@@ -10,8 +11,8 @@ import java.util.List;
 public class GraphByDistance {
     private static final String ERROR_STATIONS_NOT_CONNECTED = "출발역과 도착역이 연결되어 있지 않습니다";
 
-    private static final WeightedMultigraph<Station, DefaultWeightedEdge> graph =
-            new WeightedMultigraph(DefaultWeightedEdge.class);
+    private static final WeightedMultigraph<Station, CustomWeightedEdge> graph =
+            new WeightedMultigraph(CustomWeightedEdge.class);
     private static final DijkstraShortestPath shortestDistanceGraph = new DijkstraShortestPath(graph);
 
     public static WeightedMultigraph getGraph() {
@@ -34,15 +35,21 @@ public class GraphByDistance {
         return shortestPath;
     }
 
-    public static int getTimeOfShortestPathByDistance(Station from, Station to) {
-        WeightedMultigraph<Station, DefaultWeightedEdge> timeGraph = GraphByTime.getGraph();
-        int totalTime = shortestDistanceGraph
+    public static List<CustomWeightedEdge> getShortestPathEdgeList(Station from, Station to) {
+        return shortestDistanceGraph
                 .getPath(from, to)
-                .getEdgeList()
-                .stream()
-                .mapToInt(edge -> (int) timeGraph
-                        .getEdgeWeight((DefaultWeightedEdge) edge))
-                        .sum();
+                .getEdgeList();
+    }
+
+    public static int getTimeOfShortestPathByDistance(Station from, Station to) {
+        List<CustomWeightedEdge> shortestDistanceEdgeList = getShortestPathEdgeList(from, to);
+        WeightedMultigraph<Station, CustomWeightedEdge> timeGraph = GraphByTime.getGraph();
+        int totalTime = 0;
+        for(CustomWeightedEdge edge : shortestDistanceEdgeList){
+            Station source = (Station) edge.getSource();
+            Station target = (Station) edge.getTarget();
+            totalTime += timeGraph.getEdge(source, target).getWeight();
+        }
         return totalTime;
     }
 
