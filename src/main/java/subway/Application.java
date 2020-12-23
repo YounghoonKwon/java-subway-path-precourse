@@ -34,31 +34,31 @@ public class Application {
     public static void initGraph() {
         StationRepository.getStations()
                 .stream()
-                .forEach(station -> GraphByTime.addVertex(station));
+                .forEach(station -> TimeGraph.addVertex(station));
         StationRepository.getStations()
                 .stream()
-                .forEach(station -> GraphByDistance.addVertex(station));
+                .forEach(station -> DistanceGraph.addVertex(station));
         initDistanceGraph();
         initTimeGraph();
     }
 
     public static void initDistanceGraph() {
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 2);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 2);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 3);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 6);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 2);
-        GraphByDistance.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 10);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 2);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 2);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 3);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 6);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 2);
+        DistanceGraph.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 10);
     }
 
     public static void initTimeGraph() {
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 3);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 3);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 2);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 5);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 8);
-        GraphByTime.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 3);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("강남역"), 3);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("역삼역"), 3);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("교대역"), StationRepository.findStationByName("남부터미널역"), 2);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("남부터미널역"), StationRepository.findStationByName("양재역"), 5);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("매봉역"), 1);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("강남역"), StationRepository.findStationByName("양재역"), 8);
+        TimeGraph.setEdgeWeight(StationRepository.findStationByName("양재역"), StationRepository.findStationByName("양재시민의숲역"), 3);
     }
 }

@@ -7,26 +7,28 @@ import subway.exception.TransitRouteException;
 
 import java.util.List;
 
-public class GraphByTime {
+public class TimeGraph {
     private static final String ERROR_STATIONS_NOT_CONNECTED = "출발역과 도착역이 연결되어 있지 않습니다";
 
-    private static final WeightedMultigraph<Station, CustomWeightedEdge> graph =
+    private static final WeightedMultigraph<Station, CustomWeightedEdge> timeGraph =
             new WeightedMultigraph(CustomWeightedEdge.class);
-    private static final DijkstraShortestPath shortestTimeGraph = new DijkstraShortestPath(graph);
+    private static final WeightedMultigraph<Station, CustomWeightedEdge> distanceGraph =
+            DistanceGraph.getGraph();
+    private static final DijkstraShortestPath shortestTimeGraph = new DijkstraShortestPath(timeGraph);
 
     public static WeightedMultigraph getGraph() {
-        return graph;
+        return timeGraph;
     }
 
     public static void addVertex(Station station) {
-        graph.addVertex(station);
+        timeGraph.addVertex(station);
     }
 
     public static void setEdgeWeight(Station from, Station to, int time) {
-        graph.setEdgeWeight(graph.addEdge(from, to), time);
+        timeGraph.setEdgeWeight(timeGraph.addEdge(from, to), time);
     }
 
-    public static List<Station> getShortestPathByTime(Station from, Station to) {
+    public static List<Station> getVertexListShortestTime(Station from, Station to) {
         List<Station> shortestPath = shortestTimeGraph.getPath(from, to).getVertexList();
         if(shortestPath.isEmpty()){
             throw new TransitRouteException(ERROR_STATIONS_NOT_CONNECTED);
@@ -34,15 +36,14 @@ public class GraphByTime {
         return shortestPath;
     }
 
-    public static List<CustomWeightedEdge> getShortestPathEdgeList(Station from, Station to) {
+    public static List<CustomWeightedEdge> getEdgeListShortestTime(Station from, Station to) {
         return shortestTimeGraph
                 .getPath(from, to)
                 .getEdgeList();
     }
 
-    public static int getDistanceOfShortestPathByTime(Station from, Station to) {
-        List<CustomWeightedEdge> shortestTimeEdgeList = getShortestPathEdgeList(from, to);
-        WeightedMultigraph<Station, CustomWeightedEdge> distanceGraph = GraphByDistance.getGraph();
+    public static int getTotalDistanceShortestTime(Station from, Station to) {
+        List<CustomWeightedEdge> shortestTimeEdgeList = getEdgeListShortestTime(from, to);
         int totalDistance = 0;
         for(CustomWeightedEdge edge : shortestTimeEdgeList){
             Station source = (Station) edge.getSource();

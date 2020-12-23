@@ -9,11 +9,11 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public enum RouteMenu {
-    ROUTE_BY_DISTANCE("최단 거리", "1", RouteController::promptRouteByDistance),
-    ROUTE_BY_TIME("최소 시간", "2", RouteController::promptRouteByTime),
+    ROUTE_BY_DISTANCE("최단 거리", "1", RouteController::showShortestDistanceRoute),
+    ROUTE_BY_TIME("최소 시간", "2", RouteController::showShortestTimeRoute),
     BACK("돌아가기", "B", RouteController::back);
 
-    private static final String ERROR_CATEGORY_SELECTION = "잘못 입력 하셨습니다";
+    private static final String ERROR_CATEGORY_SELECTION = "입력 가능 문자는 1,2 또는 B 입니다.";
 
     RouteMenu(String title, String command, Runnable action) {
         this.title = title;
